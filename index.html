@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles/scss/style.scss" />
+		<script type="module" src="./script.js" defer></script>
+		<title>Alerts v2</title>
+	</head>
+	<body>
+		<form>
+			<input type="text" />
+			<button type="button">Submit</button>
+		</form>
+		<svg role="none" class="sprite" xmlns="http://www.w3.org/2000/svg">
+			<symbol id="alert-danger" viewBox="0 0 256 256">
+				<title>Alert: Danger</title>
+				<circle cx="128" cy="128" r="96" fill="var(--alr-icon)"></circle>
+				<line
+					x1="128"
+					y1="80"
+					x2="128"
+					y2="136"
+					fill="none"
+					stroke="var(--alr-bg)"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="16"
+				></line>
+				<circle fill="var(--alr-bg)" cx="128" cy="172" r="12"></circle>
+			</symbol>
+			<symbol id="alert-close" viewbox="0 0 256 256">
+				<title>Close</title>
+				<line
+					x1="200"
+					y1="56"
+					x2="56"
+					y2="200"
+					stroke="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="16"
+				></line>
+				<line
+					x1="200"
+					y1="200"
+					x2="56"
+					y2="56"
+					stroke="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="16"
+				></line>
+			</symbol>
+			<symbol id="alert-information" viewBox="0 0 256 256">
+				<title>Alert: Info</title>
+				<circle
+					cx="128"
+					cy="128"
+					r="96"
+					fill="var(--alr-icon)"
+					stroke="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="16"
+				></circle>
+				<polyline
+					points="120 120 128 120 128 176 136 176"
+					fill="none"
+					stroke="var(--alr-bg)"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="16"
+				></polyline>
+				<circle cx="126" cy="84" r="12" fill="var(--alr-bg)"></circle>
+			</symbol>
+			<symbol id="alert-success" viewBox="0 0 256 256">
+				<title>Alert: Success</title>
+				<circle
+					cx="128"
+					cy="128"
+					r="96"
+					fill="var(--alr-icon)"
+					stroke="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="16"
+				></circle>
+				<polyline
+					points="172 104 113.3 160 84 132"
+					fill="none"
+					stroke="var(--alr-bg)"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="16"
+				></polyline>
+			</symbol>
+			<symbol id="alert-warning" viewBox="0 0 256 256">
+				<circle
+					cx="128"
+					cy="128"
+					r="96"
+					fill="var(--alr-icon)"
+					stroke="none"
+					stroke-miterlimit="10"
+					stroke-width="16"
+				></circle>
+				<line
+					x1="128"
+					y1="80"
+					x2="128"
+					y2="136"
+					fill="none"
+					stroke="var(--alr-bg)"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="16"
+				></line>
+				<circle cx="128" cy="172" r="12" fill="var(--alr-bg)"></circle>
+			</symbol>
+			<symbol id="alert-warning" viewBox="0 0 256 256">
+				<circle
+					cx="128"
+					cy="128"
+					r="96"
+					fill="var(--alr-icon)"
+					stroke="none"
+					stroke-miterlimit="10"
+					stroke-width="16"
+				></circle>
+				<line
+					x1="128"
+					y1="80"
+					x2="128"
+					y2="136"
+					fill="none"
+					stroke="var(--alr-bg)"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="16"
+				></line>
+				<circle fill="var(--alr-bg)" cx="128" cy="172" r="12"></circle>
+			</symbol>
+		</svg>
+	</body>
+</html>

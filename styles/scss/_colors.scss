@@ -1,0 +1,35 @@
+[data-alert="danger"] {
+	--alr-bg: hsl(360 80% 95%);
+	--alr-brd: hsl(360 90% 85%);
+	--alr-prog: hsl(360 80% 82%);
+	--alr-icon: hsl(360 80% 60%);
+	--alr-clr: hsl(360 90% 38%);
+	--shadow-color: 360 80% 85%;
+}
+
+[data-alert="information"] {
+	--alr-bg: hsl(229 100% 90%);
+	--alr-brd: hsl(229 90% 80%);
+	--alr-prog: hsl(229 100% 80%);
+	--alr-icon: hsl(229 90% 60%);
+	--alr-clr: hsl(229, 69%, 35%);
+	--shadow-color: 229 100% 85%;
+}
+
+[data-alert="warning"] {
+	--alr-bg: hsl(36 100% 90%);
+	--alr-brd: hsl(36 90% 80%);
+	--alr-prog: hsl(36 100% 80%);
+	--alr-icon: hsl(36 100% 60%);
+	--alr-clr: hsl(36 90% 46%);
+	--shadow-color: 36 100% 85%;
+}
+
+[data-alert="success"] {
+	--alr-bg: hsl(145 75% 90%);
+	--alr-brd: hsl(145 75% 75%);
+	--alr-prog: hsl(145 75% 80%);
+	--alr-icon: hsl(145 75% 60%);
+	--alr-clr: hsl(145 75% 38%);
+	--shadow-color: 145 75% 85%;
+}

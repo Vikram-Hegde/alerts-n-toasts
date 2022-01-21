@@ -1,0 +1,30 @@
+.sprite {
+	display: none;
+}
+
+.alert {
+	&__icon {
+		height: 1.75rem;
+		width: 1.75rem;
+		margin-left: 1rem;
+	}
+
+	&__close-btn {
+		--bounds: 3.25rem;
+		height: var(--bounds);
+		width: var(--bounds);
+		background-color: transparent;
+		margin-left: auto;
+		border: none;
+		border-left: 1px solid var(--alr-brd);
+		outline-color: var(--alr-clr);
+		color: inherit;
+		line-height: 0;
+	}
+
+	&__close {
+		pointer-events: none;
+		height: 1.25rem;
+		width: 1.25rem;
+	}
+}

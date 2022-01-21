@@ -1,0 +1,64 @@
+// TODO: change the animation duration to a custom property
+
+.alert {
+	animation: animate-in 0.25s ease-in-out forwards;
+
+	&.animate-out {
+		animation: animate-out 0.25s ease-in-out forwards;
+	}
+}
+
+.with-progress {
+	animation: animate-in-out 5s ease-in-out forwards;
+
+	&::after {
+		animation: progress-bar 4.4s ease-in-out forwards 0.3s;
+		transform-origin: left;
+	}
+
+	&:hover {
+		animation-play-state: paused;
+
+		&::after {
+			animation-play-state: inherit;
+		}
+	}
+}
+
+@keyframes animate-in-out {
+	0% {
+		opacity: 1;
+		transform: translateY(100px) scale(0.5);
+	}
+	5%,
+	95% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(100px) scale(0.3);
+	}
+}
+
+@keyframes progress-bar {
+	to {
+		transform: scaleX(1);
+	}
+}
+
+@keyframes animate-in {
+	from {
+		transform: translateY(100px) scale(0.5);
+	}
+	to {
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes animate-out {
+	to {
+		opacity: 0;
+		transform: translateY(100px) scale(0.3);
+	}
+}

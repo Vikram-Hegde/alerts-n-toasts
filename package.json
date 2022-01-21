@@ -1,0 +1,21 @@
+{
+  "name": "alerts-v2",
+  "version": "2.0",
+  "description": "Easy to use alerts and toasts for your web apps",
+  "source": "index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "keywords": [
+    "alerts",
+    "toasts",
+    "notifications"
+  ],
+  "author": "Vikram",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.2.0",
+    "parcel": "^2.2.0"
+  }
+}
