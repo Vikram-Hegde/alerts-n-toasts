@@ -19,7 +19,7 @@ const init = () => {
  */
 const createAlert = (type, message) => {
 	let newAlert = document.createElement('div');
-	newAlert.classList.add('alert');
+	newAlert.classList.add('alert', 'with-progress');
 	newAlert.setAttribute('data-alert', type);
 	newAlert.setAttribute('role', 'alert');
 	newAlert.innerHTML = `
@@ -73,9 +73,8 @@ document.addEventListener('click', (e) => {
 
 	alert.classList.add('animate-out');
 	alert.style.animation = 'animate-out .25s ease-in-out forwards';
-	setTimeout(() => {
-		alert.remove();
-	}, 250);
+	const dur = parseFloat(alert.style.animationDuration) * 1000;
+	setTimeout(() => alert.remove(), dur);
 });
 
 /**
@@ -88,15 +87,12 @@ const Alert = (type, message) => {
 	const alert = createAlert(type, message);
 	addAlert(alert);
 
-	if (
-		alert.classList.contains('with-progress') &&
-		!alert.classList.contains('animate-out')
-	)
+	if (alert.classList.contains('with-progress'))
 		return new Promise(async () => {
 			await Promise.allSettled(
 				alert.getAnimations().map((animation) => animation.finished)
 			);
-			alert.remove();
+			!alert.classList.contains('animate-out') && alert.remove();
 		});
 };
 
