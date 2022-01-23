@@ -71,7 +71,6 @@ document.addEventListener('click', (e) => {
 
 	let alert = e.target.parentElement;
 
-	alert.classList.add('animate-out');
 	alert.style.animation = 'animate-out .25s ease-in-out forwards';
 	const dur = parseFloat(alert.style.animationDuration) * 1000;
 	setTimeout(() => alert.remove(), dur);
@@ -92,7 +91,7 @@ const Alert = (type, message) => {
 			await Promise.allSettled(
 				alert.getAnimations().map((animation) => animation.finished)
 			);
-			!alert.classList.contains('animate-out') && alert.remove();
+			alert.style.animationName !== 'animate-out' && alert.remove();
 		});
 };
 
