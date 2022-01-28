@@ -1,14 +1,16 @@
-// @ts-check
+/* 
+	Extending the same code from https://web.dev/building-a-toast-component/ but for alerts and toasts 
+*/
 
 /**
  * Creates a alert group
  * @returns {HTMLElement} Alert Group
  */
 const init = () => {
-	const alertGroup = document.createElement('section');
-	alertGroup.classList.add('alert-group');
-	document.body.append(alertGroup);
-	return alertGroup;
+  const alertGroup = document.createElement('section');
+  alertGroup.classList.add('alert-group');
+  document.body.append(alertGroup);
+  return alertGroup;
 };
 
 /**
@@ -18,14 +20,12 @@ const init = () => {
  * @returns {HTMLElement} Alert element
  */
 const createAlert = (type, message) => {
-	let newAlert = document.createElement('div');
-	newAlert.classList.add('alert', 'with-progress');
-	newAlert.setAttribute('data-alert', type);
-	newAlert.setAttribute('role', 'alert');
-	newAlert.innerHTML = `
-	<svg class="alert__icon" role="img" aria-label="${
-		type[0].toUpperCase() + type.slice(1)
-	}:">
+  let newAlert = document.createElement('div');
+  newAlert.classList.add('alert', 'with-progress');
+  newAlert.setAttribute('data-alert', type);
+  newAlert.setAttribute('role', 'alert');
+  newAlert.innerHTML = `
+	<svg class="alert__icon" role="img" aria-label="${type}:">
 		<use href="#alert-${type}" />
 	</svg>
 	<output class="alert__message">${message}</output>
@@ -35,7 +35,7 @@ const createAlert = (type, message) => {
 		</svg>
 	</button>
 	`;
-	return newAlert;
+  return newAlert;
 };
 
 /**
@@ -43,7 +43,7 @@ const createAlert = (type, message) => {
  * @param {HTMLElement} alert Alert element
  */
 const addAlert = (alert) => {
-	AlertGroup.children.length ? flip(alert) : AlertGroup.append(alert);
+  AlertGroup.children.length ? flip(alert) : AlertGroup.append(alert);
 };
 
 /**
@@ -51,29 +51,29 @@ const addAlert = (alert) => {
  * @param {HTMLElement} alert Alert element
  */
 const flip = (alert) => {
-	const first = AlertGroup.offsetHeight;
-	AlertGroup.append(alert);
-	const last = AlertGroup.offsetHeight;
+  const first = AlertGroup.offsetHeight;
+  AlertGroup.append(alert);
+  const last = AlertGroup.offsetHeight;
 
-	const invert = last - first;
+  const invert = last - first;
 
-	AlertGroup.animate(
-		[{ transform: `translateY(${invert}px)` }, { transform: 'translateY(0)' }],
-		{
-			duration: 150,
-			easing: 'ease-out',
-		}
-	);
+  AlertGroup.animate(
+    [{ transform: `translateY(${invert}px)` }, { transform: 'translateY(0)' }],
+    {
+      duration: 150,
+      easing: 'ease-out',
+    }
+  );
 };
 
 document.addEventListener('click', (e) => {
-	if (!e.target.classList.contains('alert__close-btn')) return;
+  if (!e.target.classList.contains('alert__close-btn')) return;
 
-	let alert = e.target.parentElement;
+  let alert = e.target.parentElement;
 
-	alert.style.animation = 'animate-out .25s ease-in-out forwards';
-	const dur = parseFloat(alert.style.animationDuration) * 1000;
-	setTimeout(() => alert.remove(), dur);
+  alert.style.animation = 'animate-out .25s ease-in-out forwards';
+  const dur = parseFloat(alert.style.animationDuration) * 1000;
+  setTimeout(() => alert.remove(), dur);
 });
 
 /**
@@ -83,16 +83,16 @@ document.addEventListener('click', (e) => {
  * @returns {Promise<void>} Promise
  */
 const Alert = (type, message) => {
-	const alert = createAlert(type, message);
-	addAlert(alert);
+  const alert = createAlert(type, message);
+  addAlert(alert);
 
-	if (alert.classList.contains('with-progress'))
-		return new Promise(async () => {
-			await Promise.allSettled(
-				alert.getAnimations().map((animation) => animation.finished)
-			);
-			alert.style.animationName !== 'animate-out' && alert.remove();
-		});
+  alert.classList.contains('with-progress') &&
+    new Promise(async () => {
+      await Promise.allSettled(
+        alert.getAnimations().map((animation) => animation.finished)
+      );
+      alert.style.animationName !== 'animate-out' && alert.remove();
+    });
 };
 
 const AlertGroup = init();

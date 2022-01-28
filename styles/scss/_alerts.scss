@@ -34,8 +34,8 @@
 	color: var(--alr-clr);
 	border: 1px solid var(--alr-brd);
 	border-radius: 0.25rem;
-	will-change: transform, opacity;
 	transition: box-shadow 0.15s ease-in-out;
+	will-change: transform, opacity;
 
 	&:hover {
 		box-shadow: var(--shadow-elevation-medium);
