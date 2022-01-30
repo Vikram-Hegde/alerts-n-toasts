@@ -70,17 +70,43 @@ document.addEventListener('click', (e) => {
   if (!e.target.classList.contains('alert__close-btn')) return;
 
   let alert = e.target.parentElement;
-
-  alert.style.animation = 'animate-out .25s ease-in-out forwards';
+  alert.style.animation = 'animate-out .2s ease-in-out forwards';
   const dur = parseFloat(alert.style.animationDuration) * 1000;
-  setTimeout(() => alert.remove(), dur);
+
+  if (!alert.classList.contains('with-progress')) {
+    let prev = alert.previousElementSibling;
+    let prevArr = [];
+
+    while (prev) {
+      prevArr.push(prev);
+      prev.setAttribute(
+        'style',
+        `--variable: calc(${parseInt(
+          window.getComputedStyle(alert).height
+        )}px + var(--gap));
+			animation: slide 0.25s forwards;`
+      );
+      prev = prev.previousElementSibling;
+    }
+
+    setTimeout(() => {
+      prevArr.forEach((prev) =>
+        prev.setAttribute('style', `animation: none; --variable: 0;`)
+      );
+
+      alert.remove();
+    }, dur * 0.8);
+  } else {
+    setTimeout(() => {
+      alert.remove();
+    }, dur);
+  }
 });
 
 /**
  * Removes alert from DOM after animation
  * @param {string} type String
  * @param {string} message String
- * @returns {Promise<void>} Promise
  */
 const Alert = (type, message) => {
   const alert = createAlert(type, message);

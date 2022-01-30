@@ -63,3 +63,12 @@
 		transform: translateY(var(--travel-distance)) scale(0.3);
 	}
 }
+
+@keyframes slide {
+	99.98% {
+		transform: translateY(var(--variable));
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
