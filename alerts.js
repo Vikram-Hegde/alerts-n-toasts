@@ -21,7 +21,7 @@ const init = () => {
  */
 const createAlert = (type, message) => {
   let newAlert = document.createElement('div');
-  newAlert.classList.add('alert', 'with-progress');
+  newAlert.classList.add('alert');
   newAlert.setAttribute('data-alert', type);
   newAlert.setAttribute('role', 'alert');
   newAlert.innerHTML = `
@@ -70,37 +70,39 @@ document.addEventListener('click', (e) => {
   if (!e.target.classList.contains('alert__close-btn')) return;
 
   let alert = e.target.parentElement;
-  alert.style.animation = 'animate-out .2s ease-in-out forwards';
+  alert.style.animation = 'animate-out .25s ease-in-out forwards';
   const dur = parseFloat(alert.style.animationDuration) * 1000;
 
-  if (!alert.classList.contains('with-progress')) {
-    let prev = alert.previousElementSibling;
-    let prevArr = [];
+  let prev = alert.previousElementSibling;
+  let prevArr = [];
+  let prevAnim;
 
-    while (prev) {
-      prevArr.push(prev);
-      prev.setAttribute(
-        'style',
-        `--variable: calc(${parseInt(
-          window.getComputedStyle(alert).height
-        )}px + var(--gap));
-			animation: slide 0.25s forwards;`
-      );
-      prev = prev.previousElementSibling;
-    }
-
-    setTimeout(() => {
-      prevArr.forEach((prev) =>
-        prev.setAttribute('style', `animation: none; --variable: 0;`)
-      );
-
-      alert.remove();
-    }, dur * 0.8);
-  } else {
-    setTimeout(() => {
-      alert.remove();
-    }, dur);
+  while (prev) {
+    const { animation, height } = window.getComputedStyle(prev);
+		prevAnim = animation;
+    prevArr.push(prev);
+    prev.setAttribute(
+      'style',
+      `--slide-distance: calc(${parseInt(height)}px + var(--gap));
+			animation: ${animation && animation + ','} slide 0.25s ease-in-out forwards;`
+    );
+    prev = prev.previousElementSibling;
   }
+
+  setTimeout(() => {
+    prevArr.forEach((prev) => {
+      if (prev.classList.contains('with-progress')) {
+        prev.setAttribute(
+          'style',
+          `animation: ${prevAnim}; --slide-distance: 0;`
+        );
+      } else {
+        prev.setAttribute('style', `animation: none; --slide-distance: 0;`);
+      }
+    });
+
+    alert.remove();
+  }, dur * 0.9);
 });
 
 /**

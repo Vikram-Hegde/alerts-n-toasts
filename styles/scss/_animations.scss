@@ -65,8 +65,8 @@
 }
 
 @keyframes slide {
-	99.98% {
-		transform: translateY(var(--variable));
+	99.99% {
+		transform: translateY(var(--slide-distance));
 	}
 	100% {
 		transform: translateY(0);
