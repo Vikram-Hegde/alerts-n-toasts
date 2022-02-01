@@ -1,7 +1,3 @@
-/* 
-	Extending the same code from https://web.dev/building-a-toast-component/ but for alerts and toasts 
-*/
-
 /**
  * Creates a alert group
  * @returns {HTMLElement} Alert Group
