@@ -75,7 +75,7 @@ document.addEventListener('click', (e) => {
 
   while (prev) {
     const { animation, height } = window.getComputedStyle(prev);
-		prevAnim = animation; // to resume previous anim after sliding
+    prevAnim = animation; // to resume previous anim after sliding
     prevArr.push(prev);
     prev.setAttribute(
       'style',
