@@ -75,12 +75,12 @@ document.addEventListener('click', (e) => {
 
   while (prev) {
     const { animation, height } = window.getComputedStyle(prev);
-		prevAnim = animation;
+		prevAnim = animation; // to resume previous anim after sliding
     prevArr.push(prev);
     prev.setAttribute(
       'style',
       `--slide-distance: calc(${parseInt(height)}px + var(--gap));
-			animation: ${animation && animation + ','} slide 0.25s ease-in-out forwards;`
+			animation: ${animation}, slide 0.25s ease-in-out forwards;`
     );
     prev = prev.previousElementSibling;
   }
@@ -98,7 +98,7 @@ document.addEventListener('click', (e) => {
     });
 
     alert.remove();
-  }, dur * 0.9);
+  }, dur * 0.85);
 });
 
 /**

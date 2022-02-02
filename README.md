@@ -30,3 +30,9 @@ npm run start
 [Parcel](https://parceljs.org) takes care of the local server with HMR and compiling SCSS for us automatically.
 
 Have fun playing around with the code.
+
+## Todo
+
+- [] Change from innerHTML to template
+- [] Multiple Themes
+- [] Multiple animations

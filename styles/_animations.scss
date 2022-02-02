@@ -1,19 +1,16 @@
-// TODO: change the animation duration to a custom property
-
 .alert {
-	--travel-distance: 100px;
+	--travel-distance: 80px;
 	animation: animate-in 0.25s ease-in-out forwards;
-
-	&.animate-out {
-		animation: animate-out 0.25s ease-in-out forwards;
-	}
 }
 
 .with-progress {
-	animation: animate-in-out 5s ease-in-out forwards;
+	--dur-main: 5s;
+	--delay: 0.3s;
+	--dur-progress: calc(var(--dur-main) - (var(--delay) * 2));
+	animation: animate-in-out var(--dur-main) ease-in-out forwards;
 
 	&::after {
-		animation: progress-bar 4.4s ease-in-out forwards 0.3s;
+		animation: progress-bar var(--dur-progress) ease-in-out forwards var(--delay);
 		transform-origin: left;
 	}
 
@@ -29,16 +26,16 @@
 @keyframes animate-in-out {
 	0% {
 		opacity: 1;
-		transform: translateY(var(--travel-distance)) scale(0.5);
+		transform: translateY(var(--travel-distance));
 	}
 	5%,
 	95% {
 		opacity: 1;
-		transform: translateY(0) scale(1);
+		transform: translateY(0);
 	}
 	100% {
 		opacity: 0;
-		transform: translateY(var(--travel-distance)) scale(0.3);
+		transform: translateY(var(--travel-distance));
 	}
 }
 
@@ -50,17 +47,17 @@
 
 @keyframes animate-in {
 	from {
-		transform: translateY(var(--travel-distance)) scale(0.5);
+		transform: translateY(var(--travel-distance));
 	}
 	to {
-		transform: translateY(0) scale(1);
+		transform: translateY(0);
 	}
 }
 
 @keyframes animate-out {
 	to {
 		opacity: 0;
-		transform: translateY(var(--travel-distance)) scale(0.3);
+		transform: translateY(var(--travel-distance));
 	}
 }
 
