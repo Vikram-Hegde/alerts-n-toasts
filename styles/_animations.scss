@@ -7,6 +7,7 @@
 	--dur-main: 5s;
 	--delay: 0.3s;
 	--dur-progress: calc(var(--dur-main) - (var(--delay) * 2));
+	will-change: transform, opacity;
 	animation: animate-in-out var(--dur-main) ease-in-out forwards;
 
 	&::after {
@@ -62,7 +63,7 @@
 }
 
 @keyframes slide {
-	99.99% {
+	99% {
 		transform: translateY(var(--slide-distance));
 	}
 	100% {

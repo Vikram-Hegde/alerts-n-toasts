@@ -1,4 +1,10 @@
-const alertsNToasts = (() => {
+let alert = (() => {
+  let defaults = {
+    position: 'bottomRight',
+    timeout: 5000,
+    autoDisappear: true,
+  };
+
   // let positions = {
   //   topRight: 'top right',
   //   bottomRight: 'bottom right',
@@ -6,23 +12,30 @@ const alertsNToasts = (() => {
   //   bottomLeft: 'bottom left',
   // };
 
+  const initGroup = (type) => {
+    let elem = document.querySelector(`.${type}`);
+    if (elem) return elem;
+    let group = document.createElement('section');
+    group.classList.add(type);
+    document.body.append(group);
+    return group;
+  };
+
+  const alertGroup = initGroup('alert-group');
+  // const toastGroup = initGroup('toastGroup');
+
   let animations = {
     animateOut: 'animate-out 0.25s ease-in-out forwards',
     slide: 'slide 0.25s ease-in-out forwards',
   };
 
-  const initGroup = () => {
-		let alertGroup = document.createElement('section');
-		alertGroup.classList.add('alert-group');
-		// let toastGroup = document.createElement('section');
-		// toastGroup.classList.add('toast-group');
-		// document.body.append(alertGroup, toastGroup);
-		document.body.append(alertGroup);
-  };
+  const createAlert = (type, message, props) => {
+    let { autoDisappear } = props;
+    autoDisappear ??= defaults.autoDisappear;
 
-  const createAlert = (type, message) => {
     let newAlert = document.createElement('div');
-    newAlert.classList.add('alert', 'with-progress');
+    newAlert.classList.add('alert');
+    autoDisappear && newAlert.classList.add('with-progress');
     newAlert.setAttribute('data-alert', type);
     newAlert.setAttribute('role', 'alert');
     newAlert.innerHTML = `
@@ -39,22 +52,22 @@ const alertsNToasts = (() => {
     return newAlert;
   };
 
-  const addToGroup = (elem, parent) => {
-    parent.children.length ? animateSlide(parent, elem) : parent.append(elem);
+  const addToGroup = (elem) => {
+    alertGroup.children.length ? animateSlide(elem) : alertGroup.append(elem);
   };
 
-  const animateSlide = (parent, elem) => {
-    const first = parent.offsetHeight;
-    parent.append(elem);
-    const last = parent.offsetHeight;
+  const animateSlide = (elem) => {
+    const first = alertGroup.offsetHeight;
+    alertGroup.append(elem);
+    const last = alertGroup.offsetHeight;
 
     const invert = last - first;
 
     // include logic here to convert invert to negative if the class contains "top" word
-    if (elem.classList.contains('top')) invert = invert * -1;
-    // TODO: Do take care of the animations in css by changing the variables. and flex direction
+    // if (elem.classList.contains('top')) invert = invert * -1;
+    // TODO: Do take care of the animations in css by changing the variables, and flex direction
 
-    parent.animate(
+    alertGroup.animate(
       [
         { transform: `translateY(${invert}px)` },
         { transform: 'translateY(0)' },
@@ -66,11 +79,7 @@ const alertsNToasts = (() => {
     );
   };
 
-  document.addEventListener('click', (e) => {
-    if (!e.target.classList.contains('alert__close-btn')) return;
-
-    let alert = e.target.parentElement;
-    alert.style.animation = animations.animateOut;
+  const animateRestElem = (alert) => {
     const dur = parseFloat(alert.style.animationDuration) * 1000;
 
     let prev = alert.previousElementSibling;
@@ -94,7 +103,7 @@ const alertsNToasts = (() => {
         if (prev.classList.contains('with-progress')) {
           prev.setAttribute(
             'style',
-            `animation: ${prevAnim}; --slide-distance: 0;`
+            `animation: ${prevAnim}; --slide-distance: 0;` // resuming previous anim here
           );
         } else {
           prev.setAttribute('style', `animation: none; --slide-distance: 0;`);
@@ -102,32 +111,62 @@ const alertsNToasts = (() => {
       });
 
       alert.remove();
-    }, dur * 0.85);
+    }, dur * 0.9);
+  };
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('alert__close-btn')) return;
+
+    let alert = e.target.parentElement;
+    alert.style.animation = animations.animateOut;
+    animateRestElem(alert);
   });
 
   const removeWhenDone = (elem) => {
-		console.log('removeWhenDone');
+    let prev = elem.previousElementSibling;
+    let prevArr = [];
+
+    while (prev) {
+      prevArr.push(prev);
+      prev.setAttribute(
+        'style',
+        `--slide-distance: calc(${parseInt(
+          window.getComputedStyle(elem).height
+        )}px + var(--gap))`
+      );
+      prev = prev.previousElementSibling;
+    }
+
     new Promise(async () => {
       await Promise.allSettled(
         elem.getAnimations().map((animation) => animation.finished)
       );
-      // only specific to alerts, no issues for toasts
-      elem.style.animationName !== 'animate-out' && elem.remove();
+			prevArr.forEach(prev => prev.style.animation = 'slide 0.25s ease-in-out forwards');
+      setTimeout(() => elem.style.animationName !== 'animate-out' && elem.remove(), 250)
     });
   };
 
-	initGroup();
+  const setAlertProps = () => {
+    console.log('hello there, i"ll set props here');
+  };
 
-  const Alert = (type, message) => {
-    let parent = document.querySelector('.alert-group');
-    const alert = createAlert(type, message);
-    addToGroup(alert, parent);
+  const alert = (type, message, props = {}) => {
+    console.log('is alert fired');
+    const alert = createAlert(type, message, props);
+    addToGroup(alert);
     alert.classList.contains('with-progress') && removeWhenDone(alert);
   };
 
-	return {
-		Alert,
-	}
+  const danger = (message, props) => alert('danger', message, props);
+  const info = (message, props) => alert('information', message, props);
+  const warn = (message, props) => alert('warning', message, props);
+  const success = (message, props) => alert('success', message, props);
+
+  const toast = (message) => {
+    console.log(message);
+  };
+
+  return { danger, info, warn, success };
 })();
 
-export default alertsNToasts.Alert;
+export default alert;
