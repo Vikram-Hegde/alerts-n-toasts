@@ -151,7 +151,6 @@ let alert = (() => {
   };
 
   const alert = (type, message, props = {}) => {
-    console.log('is alert fired');
     const alert = createAlert(type, message, props);
     addToGroup(alert);
     alert.classList.contains('with-progress') && removeWhenDone(alert);
@@ -166,7 +165,7 @@ let alert = (() => {
     console.log(message);
   };
 
-  return { danger, info, warn, success };
+  return { danger, info, warn, success, alert };
 })();
 
 export default alert;
