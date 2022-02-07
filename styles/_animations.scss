@@ -67,16 +67,16 @@
   99.99% {
     transform: translateY(var(--slide-distance));
   }
-	100% {
-		transform: translateY(0);
-	}
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @keyframes slide {
-	99.99% {
-		transform: translateY(var(--slide-distance));
-	}
-	100% {
-		transform: translateY(0);
-	}
+  99.99% {
+    transform: translateY(var(--slide-distance));
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

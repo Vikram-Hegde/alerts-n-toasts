@@ -6,6 +6,5 @@ btns.forEach((btn) =>
   btn.addEventListener('click', (e) => {
 		let alertType = e.target.getAttribute('data-alert');
 		Alert.alert(alertType, `this is a ${alertType} message`, { autoDisappear: false });
-		Alert.alert(alertType, `this is a ${alertType} message`);
   })
 );

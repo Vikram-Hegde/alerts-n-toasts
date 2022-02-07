@@ -139,14 +139,18 @@ let alert = (() => {
 
     new Promise(async () => {
       await Promise.allSettled(
-        elem.getAnimations().map((animation) => animation.finished)
+        alertGroup.getAnimations({ subtree: true }).map((anim) => anim.finished)
       );
-      prevArr.forEach(
-        (prev) => (prev.style.animation = 'slide 0.25s ease-in-out forwards')
+
+      prevArr.forEach((prev) => {
+        prev.style.animation = 'slide 0.25s ease-in-out forwards';
+      });
+
+      await Promise.allSettled(
+        alertGroup.getAnimations({ subtree: true }).map((anim) => anim.finished)
       );
-      setTimeout(() => {
-        elem.style.animationName !== 'animate-out' && elem.remove();
-      }, 240);
+
+      elem.style.animationName !== 'animate-out' && elem.remove();
     });
   };
 
