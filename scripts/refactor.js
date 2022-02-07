@@ -141,12 +141,17 @@ let alert = (() => {
       await Promise.allSettled(
         elem.getAnimations().map((animation) => animation.finished)
       );
-			prevArr.forEach(prev => prev.style.animation = 'slide 0.25s ease-in-out forwards');
-      setTimeout(() => elem.style.animationName !== 'animate-out' && elem.remove(), 250)
+      prevArr.forEach(
+        (prev) => (prev.style.animation = 'slide 0.25s ease-in-out forwards')
+      );
+      setTimeout(() => {
+        elem.style.animationName !== 'animate-out' && elem.remove();
+      }, 240);
     });
   };
 
   const setAlertProps = () => {
+    // this'll be used to set alertGroup position
     console.log('hello there, i"ll set props here');
   };
 

@@ -1,69 +1,79 @@
 .alert {
-	--travel-distance: 80px;
-	animation: animate-in 0.25s ease-in-out forwards;
+  --travel-distance: 80px;
+  animation: animate-in 0.25s ease-in-out forwards;
+  will-change: transform, opacity;
 }
 
 .with-progress {
-	--dur-main: 5s;
-	--delay: 0.3s;
-	--dur-progress: calc(var(--dur-main) - (var(--delay) * 2));
-	will-change: transform, opacity;
-	animation: animate-in-out var(--dur-main) ease-in-out forwards;
+  --dur-main: 5s;
+  --delay: 0.3s;
+  --dur-progress: calc(var(--dur-main) - (var(--delay) * 2));
+  animation: animate-in-out var(--dur-main) ease-in-out forwards;
 
-	&::after {
-		animation: progress-bar var(--dur-progress) ease-in-out forwards var(--delay);
-		transform-origin: left;
-	}
+  &::after {
+    animation: progress-bar var(--dur-progress) ease-in-out forwards
+      var(--delay);
+    transform-origin: left;
+  }
 
-	&:hover {
-		animation-play-state: paused;
+  &:hover {
+    animation-play-state: paused;
 
-		&::after {
-			animation-play-state: inherit;
-		}
-	}
+    &::after {
+      animation-play-state: inherit;
+    }
+  }
 }
 
 @keyframes animate-in-out {
-	0% {
-		opacity: 1;
-		transform: translateY(var(--travel-distance));
-	}
-	5%,
-	95% {
-		opacity: 1;
-		transform: translateY(0);
-	}
-	100% {
-		opacity: 0;
-		transform: translateY(var(--travel-distance));
-	}
+  0% {
+    opacity: 1;
+    transform: translateY(var(--travel-distance));
+  }
+  5%,
+  95% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(var(--travel-distance));
+  }
 }
 
 @keyframes progress-bar {
-	to {
-		transform: scaleX(1);
-	}
+  to {
+    transform: scaleX(1);
+  }
 }
 
 @keyframes animate-in {
-	from {
-		transform: translateY(var(--travel-distance));
-	}
-	to {
-		transform: translateY(0);
-	}
+  from {
+    transform: translateY(var(--travel-distance));
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 @keyframes animate-out {
-	to {
-		opacity: 0;
-		transform: translateY(var(--travel-distance));
+  to {
+    opacity: 0;
+    transform: translateY(var(--travel-distance));
+  }
+}
+
+@keyframes slideIn {
+  99.99% {
+    transform: translateY(var(--slide-distance));
+  }
+	100% {
+		transform: translateY(0);
 	}
 }
 
 @keyframes slide {
-	99% {
+	99.99% {
 		transform: translateY(var(--slide-distance));
 	}
 	100% {
