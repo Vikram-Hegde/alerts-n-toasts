@@ -27,6 +27,7 @@ let alert = (() => {
   let animations = {
     animateOut: 'animate-out 0.25s ease-in-out forwards',
     slide: 'slide 0.25s ease-in-out forwards',
+    animateInOut: 'animate-in-out var(--dur-main) ease-in-out forwards',
   };
 
   const createAlert = (type, message, props) => {
@@ -80,30 +81,27 @@ let alert = (() => {
   };
 
   const animateRestElem = (alert) => {
+    alert.style.animation = 'animate-out .25s ease-in-out forwards';
     const dur = parseFloat(alert.style.animationDuration) * 1000;
+    let prevArr = prevElementsArr(alert);
 
-    let prev = alert.previousElementSibling;
-    let prevArr = [];
-    let prevAnim;
+    let moveY = window.getComputedStyle(alert).height;
 
-    while (prev) {
-      const { animation, height } = window.getComputedStyle(prev);
-      prevAnim = animation; // to resume previous anim after sliding
-      prevArr.push(prev);
+    prevArr.forEach((prev) => {
+      let anim = prev.style.animation;
       prev.setAttribute(
         'style',
-        `--slide-distance: calc(${parseInt(height)}px + var(--gap));
-			animation: ${animation}, ${animations.slide};`
+        `--slide-distance: calc(${parseInt(moveY)}px + var(--gap));
+				animation: ${anim ? anim + ',' : ''} ${animations.slide};`
       );
-      prev = prev.previousElementSibling;
-    }
+    });
 
     setTimeout(() => {
       prevArr.forEach((prev) => {
         if (prev.classList.contains('with-progress')) {
           prev.setAttribute(
             'style',
-            `animation: ${prevAnim}; --slide-distance: 0;` // resuming previous anim here
+            `animation: ${animations.animateInOut}; --slide-distance: 0;`
           );
         } else {
           prev.setAttribute('style', `animation: none; --slide-distance: 0;`);
@@ -111,7 +109,7 @@ let alert = (() => {
       });
 
       alert.remove();
-    }, dur * 0.9);
+    }, dur);
   };
 
   document.addEventListener('click', (e) => {
@@ -122,20 +120,25 @@ let alert = (() => {
     animateRestElem(alert);
   });
 
-  const removeWhenDone = (elem) => {
+  const prevElementsArr = (elem) => {
     let prev = elem.previousElementSibling;
     let prevArr = [];
-
     while (prev) {
       prevArr.push(prev);
-      prev.setAttribute(
-        'style',
-        `--slide-distance: calc(${parseInt(
-          window.getComputedStyle(elem).height
-        )}px + var(--gap))`
-      );
       prev = prev.previousElementSibling;
     }
+    return prevArr;
+  };
+
+  const removeWhenDone = async (elem) => {
+    let prevArr = prevElementsArr(elem);
+    let moveY = window.getComputedStyle(elem).height;
+    prevArr.forEach((prev) => {
+      prev.setAttribute(
+        'style',
+        `--slide-distance: calc(${parseInt(moveY)}px + var(--gap))`
+      );
+    });
 
     new Promise(async () => {
       await Promise.allSettled(
@@ -149,6 +152,14 @@ let alert = (() => {
       await Promise.allSettled(
         alertGroup.getAnimations({ subtree: true }).map((anim) => anim.finished)
       );
+
+      prevArr.forEach((prev) => {
+        let prevAnim = prev.style.animation;
+        prev.setAttribute(
+          'style',
+          `animation: ${prevAnim ? prevAnim : 'none'}; --slide-distance: 0;` // resuming previous anim here
+        );
+      });
 
       elem.style.animationName !== 'animate-out' && elem.remove();
     });
