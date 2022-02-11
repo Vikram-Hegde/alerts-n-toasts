@@ -84,7 +84,7 @@ let alert = (() => {
     );
   };
 
-  const animateRestElem = (alert) => {
+  const animateAndRemove = (alert) => {
     alert.style.animation = animations.animateOut;
     const dur = parseFloat(alert.style.animationDuration) * 1000;
     let prevArr = prevElementsArr(alert);
@@ -95,7 +95,7 @@ let alert = (() => {
       let anim = prev.style.animation;
       prev.setAttribute(
         'style',
-        `--slide-distance: calc(${parseInt(moveY)}px + var(--gap));
+        `--slide-distance: calc(${moveY} + var(--gap));
 				animation: ${anim ? anim + ',' : ''} ${animations.slide};`
       );
     });
@@ -121,7 +121,7 @@ let alert = (() => {
 
     let alert = e.target.parentElement;
     alert.style.animation = animations.animateOut;
-    animateRestElem(alert);
+    animateAndRemove(alert);
   });
 
   const prevElementsArr = (elem) => {
@@ -131,7 +131,7 @@ let alert = (() => {
       prevArr.push(prev);
       prev = prev.previousElementSibling;
     }
-    return prevArr;
+    return prevArr || [elem];
   };
 
   const removeWhenDone = async (elem) => {
@@ -139,64 +139,30 @@ let alert = (() => {
     let allElems = [elem, ...prevArr];
     let moveY = window.getComputedStyle(elem).height;
 
-		// waiting until all the with-progress elements finish animating
+    // waiting until all the with-progress elements finish animating
     for (let alert of allElems) {
       await Promise.allSettled(
         alert.getAnimations().map((anim) => anim.finished)
       );
     }
 
-		// run code after that
-		prevArr.forEach(async (prev) => {
-			prev.setAttribute('style', `animation: ${animations.slide};--slide-distance: calc(${moveY} + var(--gap))`)
-			await Promise.allSettled(
-				prev.getAnimations().map((anim) => anim.finished)
-			)
-			prev.setAttribute('style', 'animation: none; --slide-distance: 0')
-			elem.remove(); // removing the requested element
-		})
+		animateAndRemove(elem);
 
-    //  allElems.forEach(async (elems) => {
-    //    await Promise.allSettled(
-    //      alertGroup.getAnimations({ subtree: true }).map((anim) => anim.finished)
-    //    );
-    //    if (elems !== elem) {
-    //      elems.style.animation = animations.slide;
-    // 	console.log(elems)
-    //    }
-    //
-    // elems.classList.contains('with-progress') && elems.remove();
-    //
-    //    await Promise.allSettled(
-    //      elem.getAnimations().map((anim) => anim.finished)
-    //    );
-    //    console.log('after sliding');
-    //  });
-
-    // prevArr.forEach((prev) => (prev.style.animation = animations.slide));
-
-    // new Promise(async () => {
-    //   await Promise.allSettled(
-    //     alertGroup.getAnimations({ subtree: true }).map((anim) => anim.finished)
+    // run code after that
+    // prevArr.forEach(async (prev) => {
+    //   let animateInOut =
+    //     window.getComputedStyle(prev).animationName === 'animate-in-out';
+    //   console.log(animateInOut);
+    //   prev.setAttribute(
+    //     'style',
+    //     `animation: ${animateInOut ? animations.animateInOut + ', ' : ''} ${
+    //       animations.slide
+    //     };--slide-distance: calc(${moveY} + var(--gap))`
     //   );
-    //
-    //   prevArr.forEach((prev) => {
-    //     prev.style.animation = 'slide 0.25s ease-in-out forwards';
-    //   });
-    //
     //   await Promise.allSettled(
-    //     alertGroup.getAnimations({ subtree: true }).map((anim) => anim.finished)
+    //     prev.getAnimations().map((anim) => anim.finished)
     //   );
-    //
-    //   prevArr.forEach((prev) => {
-    //     let prevAnim = prev.style.animation;
-    //     prev.setAttribute(
-    //       'style',
-    //       `animation: ${prevAnim ? prevAnim : 'none'}; --slide-distance: 0;` // resuming previous anim here
-    //     );
-    //   });
-    //
-    //   elem.style.animationName !== 'animate-out' && elem.remove();
+    //   elem.remove(); // removing the requested element
     // });
   };
 
