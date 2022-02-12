@@ -64,10 +64,10 @@
 }
 
 @keyframes slide {
-	from {
-		transform: translateY(0);
-	}
-	to {
-		transform: translateY(var(--slide-distance));
-	}
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(var(--slide-distance));
+  }
 }
