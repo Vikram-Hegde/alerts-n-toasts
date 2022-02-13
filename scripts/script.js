@@ -14,6 +14,6 @@ btns.forEach((btn) =>
     Alert.alert(alertType, `this is a ${alertType} message`, {
       autoDisappear: false,
     });
-    Alert.alert(alertType, `this is a ${alertType} message`);
+    // Alert.alert(alertType, `this is a ${alertType} message`);
   })
 );
