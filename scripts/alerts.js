@@ -7,6 +7,7 @@ let alert = (() => {
 
   let globalProps = {
     autoDisappear: defaults.autoDisappear,
+		multiplier: 1,
   };
 
   let positions = {
@@ -74,7 +75,7 @@ let alert = (() => {
 
     alertGroup.animate(
       [
-        { transform: `translateY(${invert}px)` },
+        { transform: `translateY(calc(${invert}px * var(--multiplier)))` },
         { transform: 'translateY(0)' },
       ],
       {
@@ -115,7 +116,7 @@ let alert = (() => {
     if (!e.target.classList.contains('alert__close-btn')) return;
 
     let alert = e.target.parentElement;
-    alert.style.animation = animations.animateOut;
+		alert.setAttribute('style', `animation: ${animations.animateOut}`)
     animateAndRemove(alert);
   });
 
@@ -150,13 +151,22 @@ let alert = (() => {
     timeout ??= defaults.timeout;
     position = positions[position] ?? positions[defaults.position];
     globalProps.autoDisappear = autoDisappear ?? defaults.autoDisappear;
+		const has = (str) => position.includes(str);
+
+		if(has('top')){ globalProps.multiplier = -1; }
 
     alertGroup.setAttribute(
       'style',
       `--dur-main: ${timeout}ms; ${position
         .split(' ')
         .map((pos) => `${pos}: 0;`)
-        .join(' ')}`
+        .join(' ')}
+ 	 	 	 	--multiplier: ${globalProps.multiplier};
+			 	flex-direction: ${globalProps.multiplier === -1 ? 'column-reverse' : 'column'};
+		 	 	${has('top') ? 'padding-top: var(--gap);' : 'padding-bottom: var(--gap);'}
+		 	 	${has('right') ? 'padding-right: var(--gap);' : 'padding-left: var(--gap);'}
+		 	 	${has('right') ? 'align-item: flex-end' : 'align-items: flex-start'}
+			`
     );
   };
 

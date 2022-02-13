@@ -4,7 +4,7 @@ let btns = document.querySelectorAll('.add-alert');
 
 Alert.setGlobalProps({
   timeout: 3000,
-  position: 'bottomRight',
+  position: 'bottomLeft',
   autoDisappear: true,
 });
 

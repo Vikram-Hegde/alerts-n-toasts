@@ -28,7 +28,7 @@
 @keyframes animate-in-out {
   0% {
     opacity: 1;
-    transform: translateY(var(--travel-distance));
+    transform: translateY(calc(var(--travel-distance) * var(--multiplier)));
   }
   5%,
   95% {
@@ -37,7 +37,7 @@
   }
   100% {
     opacity: 0;
-    transform: translateY(var(--travel-distance));
+    transform: translateY(calc(var(--travel-distance) * var(--multiplier)));
   }
 }
 
@@ -49,7 +49,7 @@
 
 @keyframes animate-in {
   from {
-    transform: translateY(var(--travel-distance));
+    transform: translateY(calc(var(--travel-distance) * var(--multiplier)));
   }
   to {
     transform: translateY(0);
@@ -59,7 +59,7 @@
 @keyframes animate-out {
   to {
     opacity: 0;
-    transform: translateY(var(--travel-distance));
+    transform: translateY(calc(var(--travel-distance) * var(--multiplier)));
   }
 }
 
@@ -68,6 +68,6 @@
     transform: translateY(0);
   }
   to {
-    transform: translateY(var(--slide-distance));
+    transform: translateY(calc(var(--slide-distance) * var(--multiplier)));
   }
 }
