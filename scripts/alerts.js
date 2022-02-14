@@ -153,18 +153,16 @@ let alert = (() => {
     globalProps.autoDisappear = autoDisappear ?? defaults.autoDisappear;
 		const has = (str) => position.includes(str);
 
-		if(has('top')){ globalProps.multiplier = -1; }
+		if(has('top')) globalProps.multiplier = -1;
 
     alertGroup.setAttribute(
       'style',
       `--dur-main: ${timeout}ms; ${position
         .split(' ')
-        .map((pos) => `${pos}: 0;`)
+        .map((pos) => `${pos}: 0; padding-${pos}: var(--gap);`)
         .join(' ')}
  	 	 	 	--multiplier: ${globalProps.multiplier};
-			 	flex-direction: ${globalProps.multiplier === -1 ? 'column-reverse' : 'column'};
-		 	 	${has('top') ? 'padding-top: var(--gap);' : 'padding-bottom: var(--gap);'}
-		 	 	${has('right') ? 'padding-right: var(--gap);' : 'padding-left: var(--gap);'}
+			 	flex-direction: ${has('top') ? 'column-reverse' : 'column'};
 		 	 	${has('right') ? 'align-item: flex-end' : 'align-items: flex-start'}
 			`
     );
