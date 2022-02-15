@@ -33,9 +33,12 @@ Have fun playing around with the code.
 
 ## Todo
 
+- [x] Alerts
 - [x] Support for positions
 - [x] Local and Global Props
-- [ ] Modifying animations based on position
+- [x] Modifying animations based on position
+- [ ] Toasts
 - [ ] Change from innerHTML to template
 - [ ] Multiple Themes
 - [ ] Multiple animations
+- [ ] Demo page
