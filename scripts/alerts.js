@@ -1,4 +1,6 @@
 let alert = (() => {
+	let alertGroup, toastGroup;
+
   let defaults = {
     position: 'bottomRight',
     timeout: 5000,
@@ -26,7 +28,7 @@ let alert = (() => {
     return group;
   };
 
-  const alertGroup = initGroup('alert-group');
+  // const alertGroup = initGroup('alert-group');
   // const toastGroup = initGroup('toastGroup');
 
   let animations = {
@@ -58,22 +60,18 @@ let alert = (() => {
     return newAlert;
   };
 
-  const addToGroup = (elem) => {
-    alertGroup.children.length ? animateSlide(elem) : alertGroup.append(elem);
+  const addToGroup = (elem, parent) => {
+    parent.children.length ? animateSlide(elem, parent) : parent.append(elem);
   };
 
-  const animateSlide = (elem) => {
+  const animateSlide = (elem, parent) => {
     const first = alertGroup.offsetHeight;
-    alertGroup.append(elem);
+    parent.append(elem);
     const last = alertGroup.offsetHeight;
 
     const invert = last - first;
 
-    // include logic here to convert invert to negative if the class contains "top" word
-    // if (elem.classList.contains('top')) invert = invert * -1;
-    // TODO: Do take care of the animations in css by changing the variables, and flex direction
-
-    alertGroup.animate(
+    parent.animate(
       [
         { transform: `translateY(calc(${invert}px * var(--multiplier)))` },
         { transform: 'translateY(0)' },
@@ -154,7 +152,7 @@ let alert = (() => {
 		const has = (str) => position.includes(str);
 
 		if(has('top')) globalProps.multiplier = -1;
-
+ 	 	alertGroup = initGroup('alert-group');
     alertGroup.setAttribute(
       'style',
       `--dur-main: ${timeout}ms; ${position
@@ -169,8 +167,9 @@ let alert = (() => {
   };
 
   const alert = (type, message, props = {}) => {
+		alertGroup = initGroup('alert-group');
     const alert = createAlert(type, message, props);
-    addToGroup(alert);
+    addToGroup(alert, alertGroup);
     alert.classList.contains('with-progress') && removeWhenDone(alert);
   };
 
@@ -179,11 +178,16 @@ let alert = (() => {
   const warn = (message, props) => alert('warning', message, props);
   const success = (message, props) => alert('success', message, props);
 
-  const toast = (message) => {
-    console.log(message);
+  const toast = async (message) => {
+		toastGroup = initGroup('toast-group');
+		const toast = createToast(message);
+		addToGroup(toast, toastGroup);
+
+		await Promise.allSettled(toast.getAnimations().map(anim => anim.finished))
+		toast.remove();
   };
 
-  return { setGlobalProps, danger, info, warn, success, alert };
+  return { setGlobalProps, danger, info, warn, success, alert, toast };
 })();
 
 export default alert;
