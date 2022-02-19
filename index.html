@@ -7,47 +7,6 @@
     <link rel="stylesheet" href="./styles/style.scss" />
     <script type="module" src="./scripts/script.js" defer></script>
     <title>Alerts v2</title>
-    <style>
-      body {
-        min-height: 100vh;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        place-items: center;
-      }
-      .btn-group {
-        min-width: 25%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-      }
-      .add-alert {
-        padding: 0.5rem 1rem;
-        color: var(--alr-clr);
-        background: var(--alr-bg);
-        border: none;
-        outline-color: var(--alr-brd);
-        outline-offset: 2px;
-        font-family: sans-serif;
-        font-size: 1.2rem;
-        border-radius: .25rem;
-        transition: all 0.15s ease-in-out;
-        transition-property: background-color, color, transform;
-      }
-
-      .add-alert:hover {
-        color: var(--alr-bg);
-        background-color: var(--alr-clr);
-      }
-
-      .add-alert:focus-visible {
-        outline: 2px solid var(--alr-brd);
-      }
-
-			.add-alert:active {
-				transform: scale(0.98);
-			}
-    </style>
   </head>
   <body>
     <div class="btn-group">
