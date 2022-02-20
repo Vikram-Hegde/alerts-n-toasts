@@ -37,8 +37,9 @@ Have fun playing around with the code.
 - [x] Support for positions
 - [x] Local and Global Props
 - [x] Modifying animations based on position
-- [ ] Toasts
-- [ ] Change from innerHTML to template
-- [ ] Multiple Themes
-- [ ] Multiple animations
+- [ ] Responsive
 - [ ] Demo page
+- [ ] Toasts
+- [ ] Change from innerHTML to template tag (heard innerHTML is bad for security reasons)
+- [ ] Multiple Themes
+- [ ] Multiple Animations
