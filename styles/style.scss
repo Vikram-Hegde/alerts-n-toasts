@@ -2,43 +2,63 @@
 @use 'alerts' as *;
 @use 'icons' as *;
 @use 'animations' as *;
+@use 'utils' as *;
+
+:root {
+	--fs--200: clamp(0.69rem, 0.57rem + 0.54vw, 0.96rem);
+	--fs--100: clamp(0.83rem, 0.66rem + 0.75vw, 1.2rem);
+	--fs-100: clamp(1rem, 0.77rem + 1.03vw, 1.5rem);
+	--fs-200: clamp(1.2rem, 0.89rem + 1.38vw, 1.88rem);
+	--fs-300: clamp(1.44rem, 1.02rem + 1.85vw, 2.34rem);
+	--fs-400: clamp(1.73rem, 1.17rem + 2.47vw, 2.93rem);
+	--fs-500: clamp(2.07rem, 1.34rem + 3.26vw, 3.66rem);
+	--fs-600: clamp(2.49rem, 1.52rem + 4.29vw, 4.58rem);
+}
 
 body {
-	min-height: 100vh;
 	margin: 0;
-	padding: 0;
-	display: grid;
-	place-items: center;
+	font-family: 'IBM Plex Sans', sans-serif;
 }
-.btn-group {
-	min-width: 25%;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 1rem;
-}
-.add-alert {
-	padding: 0.5rem 1rem;
-	color: var(--alr-clr);
-	background: var(--alr-bg);
+
+button {
+	background-color: transparent;
 	border: none;
-	outline-color: var(--alr-brd);
-	outline-offset: 2px;
-	font-family: sans-serif;
-	font-size: 1.2rem;
-	border-radius: 0.25rem;
-	transition: all 0.15s ease-in-out;
-	transition-property: background-color, color, transform;
+}
 
-	&:hover {
-		color: var(--alr-bg);
-		background-color: var(--alr-clr);
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+button,
+a {
+	outline-color: hsl(243, 80%, 69%);
+	line-height: 1;
+}
+
+.nav {
+	min-height: 3.5rem;
+	box-shadow: 0px 12px 42px -4px rgba(23, 38, 74, 0.12),
+		0px 8px 18px -6px rgba(23, 38, 74, 0.12);
+	border-radius: 0px 0px 0.625rem 0.625rem;
+	line-height: 1;
+
+
+	@include align-center;
+	justify-content: space-between;
+	padding: 0 1.25rem;
+	font-size: var(--fs-200);
+
+	span {
+		color: hsl(243, 80%, 69%);
 	}
 
-	&:focus-visible {
-		outline: 2px solid var(--alr-brd);
+	&__icons {
+		display: flex;
+		gap: 1.25rem;
 	}
 
-	&:active {
-		transform: scale(0.98);
+	.btn:active {
+		transform: scale(0.96);
 	}
 }
