@@ -8,11 +8,13 @@
 	--fs--200: clamp(0.69rem, 0.57rem + 0.54vw, 0.96rem);
 	--fs--100: clamp(0.83rem, 0.66rem + 0.75vw, 1.2rem);
 	--fs-100: clamp(1rem, 0.77rem + 1.03vw, 1.5rem);
-	--fs-200: clamp(1.2rem, 0.89rem + 1.38vw, 1.88rem);
+	--fs-200: clamp(1rem, 0.89rem + 1.38vw, 1.88rem);
 	--fs-300: clamp(1.44rem, 1.02rem + 1.85vw, 2.34rem);
 	--fs-400: clamp(1.73rem, 1.17rem + 2.47vw, 2.93rem);
 	--fs-500: clamp(2.07rem, 1.34rem + 3.26vw, 3.66rem);
 	--fs-600: clamp(2.49rem, 1.52rem + 4.29vw, 4.58rem);
+
+	--purple: hsl(243, 80%, 69%);
 }
 
 body {
@@ -32,8 +34,12 @@ a {
 
 button,
 a {
-	outline-color: hsl(243, 80%, 69%);
-	line-height: 1;
+	line-height: 0;
+	border-radius: 2px;
+
+	&:focus-visible {
+		outline: 2px solid var(--purple);
+	}
 }
 
 .nav {
@@ -50,7 +56,7 @@ a {
 	font-size: var(--fs-200);
 
 	span {
-		color: hsl(243, 80%, 69%);
+		color: var(--purple);
 	}
 
 	&__icons {
