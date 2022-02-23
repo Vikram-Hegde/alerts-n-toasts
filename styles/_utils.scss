@@ -13,3 +13,28 @@
 	justify-content: center;
 	align-items: center;
 }
+
+@mixin light-mode {
+	color-scheme: light;
+	--background: var(--white-100);
+	--text: var(--black-100);
+	--shadow-color: var(--dark-shadow);
+	--surface-100: var(--white-100);
+	--surface-200: var(--white-200);
+	--surface-300: var(--white-300);
+}
+
+@mixin dark-mode {
+	color-scheme: dark;
+	--background: var(--black-100);
+	--text: var(--white-100);
+	--shadow-color: rgba(0 0 0 0);
+	--surface-100: hsl(0 0% 13%);
+	--surface-200: var(--black-200);
+	--surface-300: var(--black-300);
+}
+
+@mixin theme-transition {
+	transition: all 0.3s ease-in-out;
+	transition-property: color, background-color, box-shadow;
+}
