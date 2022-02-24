@@ -25,12 +25,19 @@
 }
 
 body {
-	@include light-mode;
 	background-color: var(--background);
 	margin: 0;
 	font-family: 'IBM Plex Sans', sans-serif;
 	color: var(--text);
 	@include theme-transition;
+
+	&[data-theme='light'] {
+		@include light-mode;
+	}
+
+	&[data-theme='dark'] {
+		@include dark-mode;
+	}
 }
 
 button {
@@ -45,8 +52,8 @@ a {
 
 button,
 a {
-	line-height: 0;
-	border-radius: 4px;
+	line-height: 1;
+	border-radius: 0.25rem;
 
 	&:focus-visible {
 		outline: 2px solid var(--purple);
@@ -77,10 +84,6 @@ a {
 
 	&__icon {
 		stroke: currentColor;
-
-		&--sun {
-			display: none;
-		}
 	}
 
 	.btn {
@@ -97,31 +100,8 @@ a {
 	}
 }
 
-body[data-theme='dark'] {
-	@include dark-mode;
-	.nav__icon {
-		&--sun {
-			display: block;
-		}
-
-		&--moon {
-			display: none;
-		}
-	}
-}
-
 @media (prefers-color-scheme: dark) {
 	body {
 		@include dark-mode;
-	}
-
-	.nav__icon {
-		&--sun {
-			display: block;
-		}
-
-		&--moon {
-			display: none;
-		}
 	}
 }

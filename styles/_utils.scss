@@ -22,6 +22,16 @@
 	--surface-100: var(--white-100);
 	--surface-200: var(--white-200);
 	--surface-300: var(--white-300);
+
+	.nav__icon {
+		&--sun {
+			display: none;
+		}
+
+		&--moon {
+			display: block;
+		}
+	}
 }
 
 @mixin dark-mode {
@@ -32,6 +42,16 @@
 	--surface-100: hsl(0 0% 13%);
 	--surface-200: var(--black-200);
 	--surface-300: var(--black-300);
+
+	.nav__icon {
+		&--sun {
+			display: block;
+		}
+
+		&--moon {
+			display: none;
+		}
+	}
 }
 
 @mixin theme-transition {
