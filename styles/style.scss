@@ -5,10 +5,10 @@
 @use 'utils' as *;
 
 :root {
-	--fs--200: clamp(0.69rem, 0.57rem + 0.54vw, 0.96rem);
+	--fs--200: clamp(0.6rem, 0.57rem + 0.54vw, 0.8rem);
 	--fs--100: clamp(0.83rem, 0.66rem + 0.75vw, 1.2rem);
-	--fs-100: clamp(1rem, 0.77rem + 1.03vw, 1.5rem);
-	--fs-200: clamp(1rem, 0.89rem + 1.38vw, 1.6rem);
+	--fs-100: clamp(1.15rem, 0.77rem + 1.03vw, 1.5rem);
+	--fs-200: clamp(1.2rem, 0.89rem + 1.38vw, 1.88rem);
 	--fs-300: clamp(1.44rem, 1.02rem + 1.85vw, 2.34rem);
 	--fs-400: clamp(1.73rem, 1.17rem + 2.47vw, 2.93rem);
 	--fs-500: clamp(2.07rem, 1.34rem + 3.26vw, 3.66rem);
@@ -22,6 +22,10 @@
 	--black-300: hsl(0, 0%, 20%);
 	--purple: hsl(243 80% 69%);
 	--dark-shadow: rgba(23, 38, 74, 0.12);
+}
+
+* {
+	box-sizing: border-box;
 }
 
 body {
@@ -40,9 +44,16 @@ body {
 	}
 }
 
+svg {
+	pointer-events: none;
+}
+
 button {
+	cursor: pointer;
 	background-color: transparent;
 	border: none;
+	color: var(--text);
+	font-size: var(--fs-100);
 }
 
 a {
@@ -52,7 +63,7 @@ a {
 
 button,
 a {
-	line-height: 1;
+	line-height: 0;
 	border-radius: 0.25rem;
 
 	&:focus-visible {
@@ -60,17 +71,34 @@ a {
 	}
 }
 
+h2 {
+	text-transform: uppercase;
+	font-weight: 500;
+	font-size: var(--fs-200);
+	letter-spacing: 2px;
+	margin-top: 0;
+}
+
+section {
+	padding: 0 1.25rem;
+	height: calc(100vh - 3.5rem);
+	padding-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	@include center;
+}
+
 .nav {
 	min-height: 3.5rem;
-	box-shadow: 0px 12px 42px -4px var(--shadow-color),
-		0px 8px 18px -6px var(--shadow-color);
-	border-radius: 0px 0px 0.625rem 0.625rem;
-	line-height: 1;
+	box-shadow: 0.00rem 0.75rem 2.62rem -0.25rem var(--shadow-color),
+		0.00rem 0.50rem 1.12rem -0.38rem var(--shadow-color);
+	border-radius: 0.00rem 0.00rem 0.625rem 0.625rem;
+	line-height: 0;
 	background-color: var(--surface-100);
 	@include align-center;
 	justify-content: space-between;
 	padding: 0 1.25rem;
-	font-size: var(--fs-200);
+	font-size: var(--fs-100);
 	@include theme-transition;
 
 	span {
@@ -103,5 +131,39 @@ a {
 @media (prefers-color-scheme: dark) {
 	body {
 		@include dark-mode;
+	}
+}
+
+.alert-btns {
+	gap: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.split-btn {
+	display: flex;
+	--pad: clamp(0.5rem, 5vw + 0.5rem, 0.8rem);
+	
+	button, span {
+		background-color: var(--alr-bg);
+		color: var(--alr-clr);
+		@include align-center;
+	}
+
+	button {
+		border-radius: 0.25rem 0 0 0.25rem;
+		font-weight: 400;
+		padding: var(--pad) var(--fs--100);
+
+		@media(hover: none) {
+			font-weight: 500;
+		}
+	}
+
+	span {
+		border-radius: 0 0.25rem 0.25rem 0;
+		cursor: pointer;
+		border-left: 1px solid var(--alr-clr);
+		padding: var(--pad);
 	}
 }

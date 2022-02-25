@@ -22,7 +22,7 @@ let alert = (() => {
   const initGroup = (type) => {
     let elem = document.querySelector(`.${type}`);
     if (elem) return elem;
-    let group = document.createElement('section');
+    let group = document.createElement('div');
     group.classList.add(type);
     document.body.append(group);
     return group;
