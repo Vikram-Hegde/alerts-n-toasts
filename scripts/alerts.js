@@ -131,7 +131,7 @@ let alert = (() => {
   const removeWhenDone = async (elem) => {
     let allElems = [elem, ...prevElementsArr(elem)];
 		
-    // waiting until <all> with-progress elements finish animating
+    // waiting until all with-progress elements finish animating
     for (let alert of allElems) {
       await Promise.allSettled(
         alert.getAnimations().map((anim) => anim.finished)
