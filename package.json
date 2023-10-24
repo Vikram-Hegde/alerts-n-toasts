@@ -15,7 +15,7 @@
   "author": "Vikram",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.2.0",
-    "parcel": "^2.2.0"
+    "@parcel/transformer-sass": "^2.10.0",
+    "parcel": "^2.10.0"
   }
 }
