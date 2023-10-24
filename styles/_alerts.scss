@@ -46,9 +46,9 @@
 		transform: scaleX(0);
 	}
 
-	@media(max-width: 360px) {
- 	 	width: auto;
-		left: var(--gap);
-		right: var(--gap);
+	@media(max-width: 420px) {
+ 	 	width: calc(100% - 1.5rem);
+		// left: var(--gap);
+		// right: var(--gap);
 	}
 }
