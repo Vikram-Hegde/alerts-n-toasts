@@ -90,9 +90,9 @@ section {
 
 .nav {
 	min-height: 3.5rem;
-	box-shadow: 0.00rem 0.75rem 2.62rem -0.25rem var(--shadow-color),
-		0.00rem 0.50rem 1.12rem -0.38rem var(--shadow-color);
-	border-radius: 0.00rem 0.00rem 0.625rem 0.625rem;
+	box-shadow: 0rem 0.75rem 2.62rem -0.25rem var(--shadow-color),
+		0rem 0.5rem 1.12rem -0.38rem var(--shadow-color);
+	border-radius: 0rem 0rem 0.625rem 0.625rem;
 	line-height: 0;
 	background-color: var(--surface-100);
 	@include align-center;
@@ -148,8 +148,9 @@ section {
 .split-btn {
 	display: flex;
 	// --pad: clamp(0.5rem, 5vw + 0.5rem, 0.8rem);
-	
-	button, span {
+
+	button,
+	span {
 		background-color: var(--alr-bg);
 		color: var(--alr-clr);
 		@include align-center;
@@ -161,7 +162,7 @@ section {
 		// padding: var(--pad) var(--fs--100);
 		padding: 1rem;
 
-		@media(hover: none) {
+		@media (hover: none) {
 			font-weight: 500;
 		}
 	}
